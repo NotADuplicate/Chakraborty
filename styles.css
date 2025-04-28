@@ -1,0 +1,198 @@
+/* General Reset/Defaults */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f8f8;
+  color: #333;
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+/* Header Section (Name + Resume Link) */
+.header-section {
+  background-color: #eef1fa;
+  padding: 20px;
+  background: linear-gradient(135deg, #eef1fa 0%, #d0d9e8 100%);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.header-section {
+  margin: 0;
+  padding: 0;
+  height: 150px;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.header-banner {
+  background-image: url('resources/banner.png');
+  background-size: 100% 220%
+}
+.header-default {
+margin: 0;
+padding: 0;
+height: 150px;
+width: 100%;
+background-image: url('resources/orange.png');
+background-size: cover;
+background-repeat: no-repeat;
+background-position: center;
+}
+
+.main-title {
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+/* Navigation Tabs */
+nav {
+  display: flex;
+  width: 100%;
+  background-color: #333;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+nav a {
+  flex: 1;
+  text-align: center;
+  padding: 16px 0;
+  text-decoration: none;
+  color: #fff;
+  font-size: 1.1em;
+  transition: background-color 0.3s ease;
+  letter-spacing: 0.5px;
+  font-weight: bold;
+}
+
+nav a:hover {
+  background-color: #555;
+}
+
+nav a.active {
+  color: #000000; /* Example: white text */
+  background-color: #cedada; /* Example: blue background */
+  font-weight: bold;
+  text-decoration: none;
+}
+
+/* Content Container */
+.tab-content {
+  max-width: 1100px;
+  margin: 40px auto;
+  background-color: #fff;
+  padding: 40px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Large Titles Inside Tabs */
+.tab-content h2 {
+  text-align: center;
+  font-size: 1.8em;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+/* HOME TAB: Intro Section Layout */
+.home-intro {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  padding: 20px;
+}
+
+.home-text {
+  flex: 1 1 400px;
+}
+
+.home-role-title {
+  font-size: 1.25rem;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.home-role-title .dept {
+  color: #007acc;
+  font-weight: bold;
+}
+
+.home-update {
+  font-size: 1rem;
+  line-height: 1.4;
+  margin-bottom: 20px;
+}
+
+.home-photo {
+  flex: 0 0 250px;
+  text-align: center;
+}
+
+.home-photo img {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* HOME TAB: About Section */
+.home-about {
+  margin-top: 40px;
+  padding: 20px;
+}
+
+.home-about h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.home-about p {
+  margin-bottom: 20px;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* Tab stylings */
+.students-section {
+  margin-bottom: 20px;
+}
+
+/* General Link Styling */
+a {
+  color: #007acc;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Card-like styling for list items in News, Teaching, and Projects */
+.tab-content ul li {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 12px;
+  margin-bottom: 10px;
+  transition: transform 0.2s ease;
+}
+
+.tab-content ul li:hover {
+  transform: translateY(-2px);
+}

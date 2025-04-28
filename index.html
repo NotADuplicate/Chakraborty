@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chakraborty page</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header id="page-header" class="header-section">
+</header>
+  
+
+  <!-- Navigation Tabs -->
+  <nav>
+    <a href="#" id="tab-group" onclick="showTab('group')">Group</a>
+    <a href="#" id="tab-home" onclick="showTab('home')">Chakraborty</a>
+    <a href="#" id="tab-news" onclick="showTab('news')">News</a>
+    <a href="#" id="tab-teaching" onclick="showTab('teaching')">Teaching</a>
+    <a href="#" id="tab-students" onclick="showTab('students')">Students</a>
+    <a href="#" id="tab-project" onclick="showTab('project')">Project</a>
+    <a href="#" id="tab-papers" onclick="showTab('papers')">Publications</a>
+    <a href="#" id="tab-research" onclick="showTab('research')">Research</a>
+    
+  </nav>
+
+    <!-- Home Tab Content -->
+    <div id="home-content" class="home-intro">
+      <img src="https://cs.unc.edu/wp-content/uploads/sites/1265/2019/04/Samarjit-Chakraborty-214x300.jpg" 
+           alt="Profile Photo" 
+           style="object-fit: cover; width: 214px; height: 300px; flex-shrink: 0;">
+    
+      <div style="max-width: 1200px;">
+        <h2>About Me</h2>
+        <p>
+          I am with the Computer Science Department of UNC Chapel Hill and a member of the Real-Time Systems Group. My research interests span across real-time, embedded, and cyber-physical systems design. <br>
+        </p>
+        <br>
+        <h3>PERSONAL DETAILS</h3>
+            <p id="about-me"></p>
+              Samarjit Chakraborty is a William R. Kenan, Jr. Distinguished Professor in the Department of Computer Science. Prior to coming here he was a professor of Electrical Engineering at the Technical University of Munich in Germany from 2008 – 2019, where he held the Chair of Real-Time Computer Systems. From 2011 – 2016 he additionally led a research program on embedded systems for electric vehicles at the TUM CREATE Center for Electromobility in Singapore, where he also served as a Scientific Advisor. He was an assistant professor of Computer Science at the National University of Singapore from 2003 – 2008, before joining TUM. He obtained his PhD from ETH Zurich in 2003. His research interests can be best described as a random walk through various aspects of designing hardware and software for embedded computers. He served/s on the editorial boards of the ACM Journal on Autonomous Transportation Systems, IEEE Transactions on Computers, ACM Transactions on Cyber-Physical Systems, Leibniz Transactions on Embedded Systems, Design Automation of Embedded Systems, and Springer's Lecture Notes on Electrical Engineering. He has also served as the General Chair of the Embedded Systems Week (ESWeek), the Program Chair of EMSOFT, and on the executive committee of DAC. For his Ph.D. thesis, he received the ETH Medal and the European Design and Automation Association's Outstanding Doctoral Dissertation Award in 2004. In addition, he and his students have received Best Paper and Demo Awards at ISLPED, ICCD, RTCSA, ASP-DAC, EUC, and Mobisys, the 2019 ACM Transactions on Design Automation of Electronic Systems Best Paper Award for their work on automotive security, and the 2021 ACM Transactions on Embedded Computing Systems Best Paper Award for their work on energy modeling of the Bluetooth Low Energy protocol. He received the 2023 Humboldt Professorship Award from Germany and is a Fellow of the IEEE. In addition to funding from several governmental agencies, his research has also been supported by grants from General Motors, Intel, Google, BMW, Audi, Siemens and Bosch.
+            </p>
+          </div>
+        </div>
+    </div>
+
+  <!-- Main Content Area -->
+  <div id="tab-content" class="tab-content"></div>
+
+  <!-- Footer Section -->
+  <footer style="
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: rgb(87, 87, 87);
+    height: 90px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 20px;
+  ">
+    <img src="Resources\DAX logo.png" alt="Logo" style="height: 110px;">
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
