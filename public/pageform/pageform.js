@@ -27,18 +27,47 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    //Replace newlines and parse images
-    function parseImageBrackets(text) {
-        return text.replace(/\n/g,'<br>').replace(/\[\[(.*?)\]\]/g, '<img src="$1" alt="Image" style="max-width: 100%;">');
+    //Replace newlines and parse images and markdown text
+    function parseHtmlText(text) {
+        // 1) parse code blocks
+        let html = text
+            .replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>')
+            // 2) images
+            .replace(/\[\[(.*?)\]\]/g, '<img src="$1" alt="Image" style="max-width:100%;">')
+            // 3) links
+            .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank">$1</a>')
+            // 4) bold
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+            // 5) strikethrough
+            .replace(/~~(.*?)~~/g, '<del>$1</del>')
+            // 6) italic
+            .replace(/\*(.*?)\*/g, '<em>$1</em>');
+
+        // 7) lists: group lines starting with '>' into <ul>
+        const lines = html.split('\n');
+        let inList = false, out = [];
+        lines.forEach(line => {
+            if (/^>/.test(line)) {
+                if (!inList) { out.push('<ul>'); inList = true; }
+                out.push('<li>'+ line.replace(/^>\s?/, '') +'</li>');
+            } else {
+                if (inList) { out.push('</ul>'); inList = false; }
+                out.push(line);
+            }
+        });
+        if (inList) out.push('</ul>');
+
+        // 8) convert remaining newlines to <br>
+        return out.join('\n').replace(/\n/g, '<br>');
     }
     
     function updatePreview() {
         
-        const title = parseImageBrackets(document.getElementById('title').value);
-        const header1 = parseImageBrackets(document.getElementById('header1').value);
-        const paragraph1 = parseImageBrackets(document.getElementById('paragraph1').value);
-        const header2 = parseImageBrackets(document.getElementById('header2').value);
-        const paragraph2 = parseImageBrackets(document.getElementById('paragraph2').value);
+        const title = parseHtmlText(document.getElementById('title').value);
+        const header1 = parseHtmlText(document.getElementById('header1').value);
+        const paragraph1 = parseHtmlText(document.getElementById('paragraph1').value);
+        const header2 = parseHtmlText(document.getElementById('header2').value);
+        const paragraph2 = parseHtmlText(document.getElementById('paragraph2').value);
 
         previewContent.innerHTML = `
             <h1>${title}</h1>
@@ -85,12 +114,16 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => {
             if (!response.ok) {
+                console.log(response)
                 throw new Error('Network response was not ok');
             }
             return response.json();
         })
         .then(data => {
             alert('Page saved successfully!');
+            const id = data.id; // Assuming the server returns the ID of the created page
+            // Redirect to the new page or update the UI accordingly
+            window.location.href = `/page/page.html?id=${id}`; // Redirect to the new page
             console.log('Success:', data);
         })
         .catch(error => {

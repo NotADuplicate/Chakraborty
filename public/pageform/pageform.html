@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit and Preview</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="./pageform.css">
 </head>
 <body>
     <div class="container">
@@ -16,6 +16,19 @@
         <div class="tab-content">
             <div id="edit" class="tab-pane active">
                 <h2>Edit Content</h2>
+                <details>
+                    <summary>Formatting</summary>
+                    <p>Use the following syntax for formatting your content:</p>
+                    <ul>
+                        <li>Images: [[https://image.png]]</li>
+                        <li>Bullet points: start line with <code>&gt;</code></li>
+                        <li>Bold text: <code>**text**</code></li>
+                        <li>Italic text: <code>*text*</code></li>
+                        <li>Strikethrough: <code>~~text~~</code></li>
+                        <li>Code block: <code>```code```</code></li>
+                        <li>Links: <code>[text](url)</code></li>
+                    </ul>
+                </details>
                 <form id="editor-form">
                     <div class="form-group">
                         <label for="title">Title:</label>
@@ -53,6 +66,6 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="./pageform.js"></script>
 </body>
 </html>

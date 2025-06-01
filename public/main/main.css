@@ -13,14 +13,6 @@ body {
   font-size: 16px;
 }
 
-/* Header Section (Name + Resume Link) */
-.header-section {
-  background-color: #eef1fa;
-  padding: 20px;
-  background: linear-gradient(135deg, #eef1fa 0%, #d0d9e8 100%);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
-
 .header-inner {
   max-width: 1100px;
   margin: 0 auto;
@@ -31,15 +23,32 @@ body {
 }
 
 .header-section {
+    margin: 0;
+    padding: 0;
+    height: 150px;
+    width: 100%;
+    background-image: url('../resources/orange.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+
+.page-title {
+  font-size: 2em;
+  color: #ffffff;
   margin: 0;
-  padding: 0;
-  height: 150px;
-  width: 100%;
-  background-repeat: no-repeat;
-  background-position: center;
+  margin-left: auto; /* Push to the far right */
+  padding-right: 30px; /* Add some padding so it doesn't touch the edge */
+  align-self: flex-start;
+  margin-top: auto; 
+  margin-bottom: auto;
 }
+
 .header-banner {
-  background-image: url('resources/banner.png');
+  background-image: url('../Resources/orange.png');
   background-size: 100% 220%
 }
 .header-default {
@@ -47,7 +56,7 @@ margin: 0;
 padding: 0;
 height: 150px;
 width: 100%;
-background-image: url('resources/orange.png');
+background-image: url('../Resources/orange.png');
 background-size: cover;
 background-repeat: no-repeat;
 background-position: center;
@@ -64,7 +73,7 @@ background-position: center;
 nav {
   display: flex;
   width: 100%;
-  background-color: #333;
+  background-color: #585858;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
@@ -81,7 +90,7 @@ nav a {
 }
 
 nav a:hover {
-  background-color: #555;
+  background-color: #d87709;
 }
 
 nav a.active {
@@ -93,12 +102,15 @@ nav a.active {
 
 /* Content Container */
 .tab-content {
-  max-width: 1100px;
+  max-width: 50%;
   margin: 40px auto;
   background-color: #fff;
   padding: 40px 20px;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.home-tab { /* Should be wider on the group page */
+  max-width: 75%;
 }
 
 /* Large Titles Inside Tabs */
@@ -107,65 +119,6 @@ nav a.active {
   font-size: 1.8em;
   margin-bottom: 20px;
   font-weight: 700;
-}
-
-/* HOME TAB: Intro Section Layout */
-.home-intro {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 40px;
-  padding: 20px;
-}
-
-.home-text {
-  flex: 1 1 400px;
-}
-
-.home-role-title {
-  font-size: 1.25rem;
-  margin-bottom: 20px;
-  line-height: 1.5;
-}
-
-.home-role-title .dept {
-  color: #007acc;
-  font-weight: bold;
-}
-
-.home-update {
-  font-size: 1rem;
-  line-height: 1.4;
-  margin-bottom: 20px;
-}
-
-.home-photo {
-  flex: 0 0 250px;
-  text-align: center;
-}
-
-.home-photo img {
-  width: 250px;
-  height: 250px;
-  object-fit: cover;
-  border-radius: 50%;
-}
-
-/* HOME TAB: About Section */
-.home-about {
-  margin-top: 40px;
-  padding: 20px;
-}
-
-.home-about h3 {
-  font-size: 1.5rem;
-  margin-bottom: 10px;
-  font-weight: 600;
-}
-
-.home-about p {
-  margin-bottom: 20px;
-  font-size: 1rem;
-  line-height: 1.6;
 }
 
 /* Tab stylings */
@@ -195,4 +148,35 @@ a:hover {
 
 .tab-content ul li:hover {
   transform: translateY(-2px);
+}
+
+/* See More Button Styling */
+.see-more-btn {
+  display: inline-block;
+  background-color: #007acc;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 10px; /* override inline style if needed */
+}
+
+.see-more-btn:hover {
+  background-color: #005fa3;
+  transform: translateY(-2px);
+}
+
+.see-more-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 122, 204, 0.4);
+}
+
+.tab-content ul {
+  list-style: none;
+  padding-left: 0;
 }

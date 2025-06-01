@@ -4,8 +4,10 @@ const path = require('path');
 
 const app = express();
 const port = 5500;
+const PASSWORD = "securepassword"; // Replace with your desired password
 
 // Connect to SQLite database
+console.log(__dirname) //shows where this file is located, useful for debugging
 const dbPath = path.resolve(__dirname, 'database.db');
 const db = new sqlite3.Database(dbPath, (err) => {
   if (err) {
@@ -16,14 +18,19 @@ const db = new sqlite3.Database(dbPath, (err) => {
 });
 
 // Serve static files (HTML, CSS, JS) from the project directory
-app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname, '../public')));
 
 // Middleware to parse JSON request bodies
 app.use(express.json());
 
+// Add GET route for "/" to serve the main.html file. This is what causes the main page to load when you visit the root URL.
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public', 'main', 'main.html'));
+});
+
 // Get News data
 app.get('/api/news', (req, res) => {
-  db.all("SELECT * FROM News", [], (err, rows) => {
+  db.all("SELECT * FROM News ORDER by DATE desc", [], (err, rows) => {
     if (err) {
       console.error(err.message);
       res.status(500).json({ error: "Error retrieving news data" });
@@ -45,9 +52,9 @@ app.get('/api/teaching', (req, res) => {
   });
 });
 
-// Get Students data
-app.get('/api/students', (req, res) => {
-  db.all("SELECT * FROM Students", [], (err, rows) => {
+// Get Students data, on the frontend this is called "Members"
+app.get('/api/members', (req, res) => {
+  db.all("SELECT * FROM Members", [], (err, rows) => {
     if (err) {
       console.error(err.message);
       res.status(500).json({ error: "Error retrieving students data" });
@@ -69,9 +76,9 @@ app.get('/api/projects', (req, res) => {
   });
 });
 
-// Get Papers data
-app.get('/api/papers', (req, res) => {
-  db.all("SELECT * FROM Papers", [], (err, rows) => {
+// Get Papers data, on the frontend this is called "Publications"
+app.get('/api/publications', (req, res) => {
+  db.all("SELECT * FROM Publications", [], (err, rows) => {
     if (err) {
       console.error(err.message);
       res.status(500).json({ error: "Error retrieving papers data" });
@@ -91,8 +98,6 @@ app.get('/api/research', (req, res) => {
     res.json(rows);
   });
 });
-
-const PASSWORD = "securepassword"; // Replace with your desired password
 
 // Endpoint to add a new row to a table
 app.post('/api/add/:table', (req, res) => {
@@ -126,8 +131,8 @@ app.post('/api/pages', (req, res) => {
   const { title, header1, paragraph1, header2, paragraph2 } = req.body;
   
   // Validate input
-  if (!title || !header1 || !paragraph1 || !header2 || !paragraph2) {
-      return res.status(400).json({ error: 'All fields are required' });
+  if (!title || !header1 || !paragraph1) {
+      return res.status(400).json({ error: 'Title and 1st header and paragraph are required' });
   }
   
   // Insert new page into database
@@ -136,7 +141,7 @@ app.post('/api/pages', (req, res) => {
   
   db.run(sql, [title, header1, paragraph1, header2, paragraph2], function(err) {
       if (err) {
-          console.error('Error inserting page', err.message);
+          console.log('Error inserting page', err.message);
           return res.status(500).json({ error: 'Failed to save page' });
       }
       

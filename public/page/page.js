@@ -13,9 +13,38 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchPageData(pageId);
 });
 
-function parseHtml(text) {
-    return text.replace(/\n/g,'<br>').replace(/\[\[(.*?)\]\]/g, '<img src="$1" alt="Image" style="max-width: 100%;">');
-}
+    function parseHtmlText(text) {
+        // 1) parse code blocks
+        let html = text
+            .replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>')
+            // 2) images
+            .replace(/\[\[(.*?)\]\]/g, '<img src="$1" alt="Image" style="max-width:100%;">')
+            // 3) links
+            .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank">$1</a>')
+            // 4) bold
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+            // 5) strikethrough
+            .replace(/~~(.*?)~~/g, '<del>$1</del>')
+            // 6) italic
+            .replace(/\*(.*?)\*/g, '<em>$1</em>');
+
+        // 7) lists: group lines starting with '>' into <ul>
+        const lines = html.split('\n');
+        let inList = false, out = [];
+        lines.forEach(line => {
+            if (/^>/.test(line)) {
+                if (!inList) { out.push('<ul>'); inList = true; }
+                out.push('<li>'+ line.replace(/^>\s?/, '') +'</li>');
+            } else {
+                if (inList) { out.push('</ul>'); inList = false; }
+                out.push(line);
+            }
+        });
+        if (inList) out.push('</ul>');
+
+        // 8) convert remaining newlines to <br>
+        return out.join('\n').replace(/\n/g, '<br>');
+    }
 
 async function fetchPageData(pageId) {
     try {
@@ -45,10 +74,10 @@ function displayPageContent(pageData) {
     
     // Update section content
     document.getElementById('header1').textContent = pageData.header1;
-    document.getElementById('paragraph1').innerHTML = parseHtml(pageData.paragraph1);
+    document.getElementById('paragraph1').innerHTML = parseHtmlText(pageData.paragraph1);
     
     document.getElementById('header2').textContent = pageData.header2;
-    document.getElementById('paragraph2').innerHTML = parseHtml(pageData.paragraph2);
+    document.getElementById('paragraph2').innerHTML = parseHtmlText(pageData.paragraph2);
     
     // Hide loading indicator and show content
     document.getElementById('loading').style.display = 'none';

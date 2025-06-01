@@ -1,7 +1,3 @@
-/******************************************************
- * Rendering Functions
- ******************************************************/
-
 /** Fetches and renders the News tab content */
 async function renderNews() {
   const response = await fetch('/api/news');
@@ -10,14 +6,17 @@ async function renderNews() {
     return '<p>Error loading news data.</p>';
   }
   const news = await response.json();
-  let html = `<h2>News</h2><ul>`;
+  let html = `<ul>`;
   console.log(news)
   news.forEach(item => {
     html += `<li>`;
-    if (item.hyperlink) {
-      html += ` - <a href="${item.hyperlink}" target="_blank"><strong>${item.title}</strong></a>`;
+    html += `<div style="margin-bottom:20px;">`;
+    if (item.image) {
+      html += `<img src="${item.image}" alt="${item.title}" style="vertical-align:middle;width:60px;height:60px;border-radius:50%;margin-right:10px;">`;
     }
-    else {
+    if(item.hyperlink) {
+      html += `<a href="${item.hyperlink}" target="_blank">${item.title}</a>`;
+    } else {
       html += `<strong>${item.title}</strong>`;
     }
     if (item.date) {
@@ -44,12 +43,12 @@ async function renderTeaching() {
     return '<p>Error loading teaching data.</p>';
   }
   const courses = await response.json();
-  let html = `<h2>Teaching</h2><ul>`;
+  let html = `<ul>`;
   console.log("Courses:", courses)
   courses.forEach(course => {
     html += `<li>`;
     if (course.hyperlink) {
-      html += ` - <a href="${course.hyperlink}" target="_blank">${course.course}</a>`;
+      html += `<a href="${course.hyperlink}" target="_blank">${course.course}</a>`;
     } else {
       html += `${course.course}`;
     }
@@ -65,30 +64,33 @@ async function renderTeaching() {
   return html;
 }
 
-/** Fetches and renders the Students tab content */
-async function renderStudents() {
-  const response = await fetch('/api/students');
+/** Fetches and renders the renderMembers tab content */
+async function renderMembers() {
+  const response = await fetch('/api/members');
   if (!response.ok) {
-    console.error('Failed to fetch students data:', response.statusText);
-    return '<p>Error loading students data.</p>';
+    console.error('Failed to fetch members data:', response.statusText);
+    return '<p>Error loading members data.</p>';
   }
-  const students = await response.json();
-  let html = `<h2>Students</h2>`;
-  students.forEach(student => {
+  const members = await response.json();
+  let html = `<ul>`;
+  members.forEach(member => {
+    html += `<li>`;
     html += `<div style="margin-bottom:20px;">`;
-    if (student.picture) {
-      html += `<img src="${student.picture}" alt="${student.name}" style="vertical-align:middle;width:60px;height:60px;border-radius:50%;margin-right:10px;">`;
+    if (member.picture) {
+      html += `<img src="${member.picture}" alt="${member.name}" style="vertical-align:middle;width:60px;height:60px;border-radius:50%;margin-right:10px;">`;
     }
-    if(student.hyperlink) {
-      html += `<a href="${student.hyperlink}" target="_blank">${student.name}</a>`;
+    if(member.hyperlink) {
+      html += `<a href="${member.hyperlink}" target="_blank">${member.name}</a>`;
     } else {
-      html += `<strong>${student.name}</strong>`;
+      html += `<strong>${member.name}</strong>`;
     }
-    if (student.description) {
-      html += ` <br> ${student.description}`;
+    if (member.description) {
+      html += ` <br> ${member.description}`;
     }
     html += `</div>`;
+    html += `</li>`;
   });
+  html += `</ul>`;
   return html;
 }
 
@@ -100,11 +102,11 @@ async function renderProject() {
     return '<p>Error loading projects data.</p>';
   }
   const projects = await response.json();
-  let html = `<h2>Projects</h2><ul>`;
+  let html = `<ul>`;
   projects.forEach(proj => {
     html += `<li>`;
     if (proj.hyperlink) {
-      html += ` - <a href="${proj.hyperlink}" target="_blank">${proj.proj}</a>`;
+      html += `<a href="${proj.hyperlink}" target="_blank">${proj.proj}</a>`;
     } else {
       html += `<strong>${proj.proj}</strong>`;
     }
@@ -117,24 +119,24 @@ async function renderProject() {
   return html;
 }
 
-/** Fetches and renders the Papers tab content */
-async function renderPapers() {
-  const response = await fetch('/api/papers');
+/** Fetches and renders the Publications tab content */
+async function renderPublications() {
+  const response = await fetch('/api/publications');
   if (!response.ok) {
-    console.error('Failed to fetch papers data:', response.statusText);
-    return '<p>Error loading papers data.</p>';
+    console.error('Failed to fetch publications data:', response.statusText);
+    return '<p>Error loading publications data.</p>';
   }
-  const papers = await response.json();
-  let html = `<h2>Papers</h2><ul>`;
-  papers.forEach(paper => {
+  const publications = await response.json();
+  let html = `<ul>`;
+  publications.forEach(publication => {
     html += `<li>`;
-    if (paper.hyperlink) {
-      html += ` - <a href="${paper.hyperlink}" target="_blank">${paper.title}</a>`;
+    if (publication.hyperlink) {
+      html += `<a href="${publication.hyperlink}" target="_blank">${publication.title}</a>`;
     } else {
-      html += `<strong>${paper.title}</strong>`;
+      html += `<strong>${publication.title}</strong>`;
     }
-    if(paper.content) {
-      html += `<br> ${paper.content}`;
+    if(publication.content) {
+      html += `<br> ${publication.content}`;
     }
     html += `</li>`;
   });
@@ -145,15 +147,19 @@ async function renderPapers() {
 async function renderResearch() {
   const response = await fetch('/api/research');
   if (!response.ok) {
-    console.error('Failed to fetch papers data:', response.statusText);
-    return '<p>Error loading papers data.</p>';
+    console.error('Failed to fetch research data:', response.statusText);
+    return '<p>Error loading research data.</p>';
   }
-  const papers = await response.json();
-  let html = `<h2>Research</h2><ul>`;
-  papers.forEach(paper => {
+  const research = await response.json();
+  let html = `<ul>`;
+  research.forEach(paper => {
     html += `<li>`;
-    if (paper.hyperlink) {
-      html += ` - <a href="${paper.hyperlink}" target="_blank">${paper.title}</a>`;
+    html += `<div style="margin-bottom:20px;">`;
+    if (paper.image) {
+      html += `<img src="${paper.image}" alt="${paper.title}" style="vertical-align:middle;width:60px;height:60px;border-radius:50%;margin-right:10px;">`;
+    }
+    if(paper.hyperlink) {
+      html += `<a href="${paper.hyperlink}" target="_blank">${paper.title}</a>`;
     } else {
       html += `<strong>${paper.title}</strong>`;
     }
@@ -177,74 +183,76 @@ async function renderGroup() {
   const news = await response.json();
   
   // Create the flex container for the layout
-  let html = `<h2>Research Group</h2>
+  let html = `
   <div style="display: flex; flex-wrap: wrap; gap: 20px;">
-    <!-- Left side description -->
-    <div style="flex: 1; min-width: 300px;">
+    <div style="flex: 1; min-width: 60%;">
       <h3>About Our Group</h3>
       <p>Placeholder text</p>
     </div>
     
-    <!-- Right side news cards -->
-    <div style="flex: 2; min-width: 400px;">
+    <div style="flex: 2; min-width: 25%;">
       <h3>Group News and Updates</h3>
       <ul>`;
+    const tabContent = document.getElementById('tab-content');
+    tabContent.classList.add('home-tab');
       
   // Add news items in the same format as the news tab
+  let i = 0;
   news.forEach(item => {
-    html += `<li>`;
-    if (item.hyperlink) {
-      html += ` - <a href="${item.hyperlink}" target="_blank"><strong>${item.title}</strong></a>`;
-    }
-    else {
-      html += `<strong>${item.title}</strong>`;
-    }
-    if (item.date) {
-      const dateObj = new Date(item.date);
-      const options = { month: 'long', year: 'numeric' };
-      const formattedDate = dateObj.toLocaleDateString('en-US', options);
-      html += ` <em>(${formattedDate})</em>`;
-    }
-    if(item.content) {
-      html += `<br> ${item.content}`;
-    }
+    if(i < 3) {
+      html += `<li>`;
+      if (item.hyperlink) {
+        html += `<a href="${item.hyperlink}"><strong>${item.title}</strong></a>`;
+      } 
+      else {
+        html += `<strong>${item.title}</strong>`;
+      }
+      if (item.date) {
+        const dateObj = new Date(item.date);
+        const options = { month: 'long', year: 'numeric' };
+        const formattedDate = dateObj.toLocaleDateString('en-US', options);
+        html += ` <em>(${formattedDate})</em>`;
+      }
+      if(item.content) {
+        html += `<br> ${item.content}`;
+      }
 
-    html += `</li>`;
+      html += `</li>`;
+      i++;
+    }
   });
   
   html += `</ul>
+      <button onclick="showTab('news')" class="see-more-btn" style="margin-top: 10px;">See more</button>
     </div>
   </div>`;
   
   return html;
 }
 
-/******************************************************
- * Tab Switching Logic
- ******************************************************/
-
+//Tab switching functionality
 async function showTab(tabName) {
-  // Hide all tab contents
-  const tabs = document.querySelectorAll('.tab-content, #home-content, .home-about');
-  tabs.forEach(tab => tab.style.display = 'none');
-
-  // Update header image based on tab
-  const header = document.getElementById('page-header');
-  if (tabName === 'home') {
-    header.className = 'header-section header-banner'; // Use banner.png for home tab
-  } else {
-    header.className = 'header-section header-default'; // Use orange.png for other tabs
+  //Change page title
+  console.log("Tab Name:", tabName);
+  pageTitle = document.getElementById('page-title');
+  if(tabName === 'home') {
+    pageTitle.textContent = 'Design Automation for X (DAX) Research Group';
+  }
+  else {
+    pageTitle.textContent = tabName.charAt(0).toUpperCase() + tabName.slice(1);
   }
 
   // Show the selected tab
-  if (tabName === 'home') {
-    document.getElementById('home-content').style.display = 'flex';
-  } else {
     document.getElementById('tab-content').style.display = 'block';
     const contentDiv = document.getElementById('tab-content');
     let html = '';
-    
+    console.log("Tab Name:", tabName);
+    contentDiv.classList.remove('home-tab');
     switch (tabName) {
+      case 'home':
+        contentDiv.classList.add('home-tab');
+        html = await renderGroup();
+        break;
       case 'news':
         html = await renderNews();
         break;
@@ -254,29 +262,29 @@ async function showTab(tabName) {
       case 'teaching':
         html = await renderTeaching();
         break;
-      case 'students':
-        html = await renderStudents();
+      case 'members':
+        html = await renderMembers();
         break;
       case 'project':
         html = await renderProject();
         break;
-      case 'papers':
-        html = await renderPapers();
-        break;
-      case 'group':
-        html = await renderGroup();
+      case 'publications':
+        html = await renderPublications();
         break;
       default:
         html = '<h2>Welcome!</h2><p>Select a tab to view content.</p>';
     }
-  
     contentDiv.innerHTML = html;
-  }
+  
 }
   
-// Show the HOME tab by default on page load
+// Show the HOME (group) tab by default on page load
 window.onload = () => {
-  showTab('group');
+  const hometab = document.getElementById('tab-home');
+  if (hometab) {
+    hometab.classList.add("active");
+  }
+  showTab('home');
 };
 
 document.addEventListener("DOMContentLoaded", () => {

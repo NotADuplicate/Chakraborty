@@ -1,15 +1,17 @@
+body {
+    background-color: lightgray;
+    margin: 0;
+}
+
 .page-container {
+    width: 66%;
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
+    background-color: white;
+        min-height: calc(100vh - 150px);
 }
-.header-section {
-    background-color: #eef1fa;
-    padding: 20px;
-    background: linear-gradient(135deg, #eef1fa 0%, #d0d9e8 100%);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  }
-  
+
   .header-inner {
     max-width: 1100px;
     margin: 0 auto;
@@ -18,35 +20,37 @@
     justify-content: space-between;
     align-items: baseline;
   }
-  
-  .header-section {
+   
+.header-section {
     margin: 0;
     padding: 0;
     height: 150px;
     width: 100%;
-    background-repeat: no-repeat;
-    background-position: center;
-  }
-.header-default {
-    margin: 0;
-    padding: 0;
-    height: 150px;
-    width: 100%;
-    background-image: url('/Resources/orange.png');
+    background-image: url('../resources/orange.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     }
 
 .page-title {
-    font-size: 2em;
-    margin-bottom: 20px;
+  font-size: 2em;
+  color: #ffffff;
+  margin: 0;
+  margin-left: auto; /* Push to the far right */
+  padding-right: 30px; /* Add some padding so it doesn't touch the edge */
+  align-self: flex-start; /* Align at the top of flex container */
+  margin-top: auto; 
+  margin-bottom: auto;
 }
+
 .section {
     margin-bottom: 30px;
 }
 .section-header {
-    font-size: 1.5em;
+    font-size: 2em;
     margin-bottom: 10px;
 }
 .loading {
